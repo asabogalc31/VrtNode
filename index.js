@@ -1,31 +1,43 @@
-var path = require('path')
-var resemble = require('resemblejs');
-const compare = require("resemblejs").compare;
+// Modules required
 const fs = require("fs");
+const path = require('path');
+const resemble = require('resemblejs');
+const compare = require("resemblejs").compare;
 
-const screenShotsFolder = "./cypress/screenshots/expected.js"
-const file1 = path.join(screenShotsFolder, "/Home actions -- Los estudiantes login -- Creates an account twice.png")
-const file2 = path.join(screenShotsFolder, "/Home actions -- Teachers page actions -- Visits los estudiantes and goes for a teachers page (1).png")
+// Constants
+const screenShotsFolder = "./screenshots/simple_spec"
+const screenShotsExpectedFolder = "./screenshots/expected"
 
-function getDiff() {
-    /*const options = {
+/*
+* Compare two images with Resemblejs
+*/
+function compareImages(currentImage, expectedImage) {
+    const options = {
         returnEarlyThreshold: 5
     };
-
-    compare(file1, file2, options, function(err, data) {
-        if (err) {
-            console.log("An error!");
-        } else {
-            console.log(data);
-        }
-    });
-	*/
 	
-	var directory = './cypress/screenshots/simple_spec.js/';
-	let dirBuffer = Buffer.from(directory);
-	let files = fs.readdirSync(directory);
-	console.log(files);
+	var diff = resemble(currentImage).compareTo(expectedImage).ignoreLess().onComplete(function(data){
+		console.log(data);
+	});
+	
+	return diff;
+}
+
+/*
+* List children of folder
+*/
+function listFiles(folderPath) {
+	let files = fs.readdirSync(folderPath);
 	return files;
 }
 
-getDiff();
+var fileList = listFiles(screenShotsFolder);
+for (i = 0; i < fileList.length; i++){
+	console.log("==============================================================");
+	console.log("================== SCREENSHOT " + (i+1) +"===============");
+	console.log("==============================================================");
+	currentImage = path.join(screenShotsFolder, fileList[i]);
+	expectedImage = path.join(screenShotsExpectedFolder, fileList[i]);
+	var result = compareImages(currentImage, expectedImage);
+	console.log(result);
+}
