@@ -1,0 +1,28 @@
+{
+  "name": "vrtnode",
+  "version": "1.0.0",
+  "description": "Visual Regresion Testing with Resemblejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asabogalc31/VrtNode.git"
+  },
+  "keywords": [
+    "vrt"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asabogalc31/VrtNode/issues"
+  },
+  "homepage": "https://github.com/asabogalc31/VrtNode#readme",
+  "dependencies": {
+    "mz": "^2.7.0",
+    "path": "^0.12.7",
+    "resemblejs": "^3.2.3",
+    "underscore": "^1.9.1"
+  }
+}
